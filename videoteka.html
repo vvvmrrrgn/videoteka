@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Видеотека</title> 
+<style> 
+header { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-evenly; 
+    align-items: flex-start; 
+} 
+div { 
+    width: 45%; 
+    border: 1px solid black; 
+    padding: 20px; 
+    margin-top: 10px; 
+} 
+div p { 
+    margin: 0; 
+} 
+img { 
+    float: left; 
+    width: 30%; 
+    height: 100%;
+    object-fit: contain; 
+    margin-right: 20px; 
+    padding-bottom: 20px; 
+    } 
+</style> 
+</head> 
+<body> 
+    <header></header> 
+<script> 
+var requestURL = 'https://github.com/vvvmrrrgn/videoteka/blob/main/videoteka.json';
+var request = new XMLHttpRequest(); 
+request.open('GET', requestURL); 
+request.responseType = 'json'; 
+request.send(); 
+request.onload = function () 
+{ 
+    var VideoFilms = request.response; 
+    writeVideoFilms(VideoFilms); 
+} 
+function writeVideoFilms(jsonObj) { 
+    var header = document.querySelector('header'); 
+    for (let i = 0; i < jsonObj.length; i++) { 
+        card = document.createElement('div'); 
+        header.appendChild(card); 
+        img = document.createElement('img'); 
+        img.src = "filmsimg/" + jsonObj[i]['cover'] 
+        card.appendChild(img); 
+
+        H1 = document.createElement('h1'); 
+        H1.textContent = jsonObj[i]['title']; 
+        card.appendChild(H1); 
+
+        p0 = document.createElement('p'); 
+        p0.textContent = 'длительность: ' + jsonObj[i]['time'] 
+        card.appendChild(p0); 
+
+        p1 = document.createElement('p'); 
+        p1.textContent = 'жанр: ' + jsonObj[i]['genre'] 
+        card.appendChild(p1); 
+
+        p5 = document.createElement('p'); 
+        p5.textContent = 'страна: ' + jsonObj[i]['country'] 
+        card.appendChild(p5); 
+
+        p2 = document.createElement('p'); 
+        p2.textContent = 'аннотация: ' + jsonObj[i]['description'] 
+        card.appendChild(p2);
+
+        p3 = document.createElement('p'); 
+        p3.textContent = 'год выхода: ' + jsonObj[i]['year'] 
+        card.appendChild(p3); 
+
+        p4 = document.createElement('p'); 
+        p4.textContent = 'режиссер: ' + jsonObj[i]['director'] 
+        card.appendChild(p4); 
+
+        p6 = document.createElement('p'); 
+        p6.textContent = 'актеры: ' + jsonObj[i]['actors'] 
+        card.appendChild(p6); 
+        } 
+        } 
+</script> 
+</body> 
+</html>
